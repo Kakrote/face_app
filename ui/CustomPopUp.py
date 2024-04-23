@@ -30,5 +30,8 @@ class PopUp(ctk.CTkFrame):
     def show(self):
         self.title.grid()
         self.message.grid(padx=10,pady=10)
+        # self.bu=self.button_frame(self)
+        self.button_frame.grid()
+        # self.bu.grid()
         # self.pack(fill=ctk.BOTH, expand=True)
         self.grid()
