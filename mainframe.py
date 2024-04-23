@@ -3,6 +3,7 @@ import customtkinter as ctk
 import tkinter
 
 from ui.home import Home
+from ui.registration import Registration
 
 class MainPanel(ctk.CTkFrame):
     activepanel=None
@@ -13,9 +14,12 @@ class MainPanel(ctk.CTkFrame):
 
     def __init__(self, master, **kwargs):
         super().__init__(master,border_color='#333',border_width=2, **kwargs)
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
         self.home=Home(self)
+        self.registration=Registration(self)
 
-        self.activeframe=self.home
+        self.activeframe=self.registration
 
     def show(self):
         self.activeframe.show()
