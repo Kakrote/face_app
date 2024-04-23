@@ -11,8 +11,8 @@ class MainPanel(ctk.CTkFrame):
         App.mainpanel.activeframe=frame
         App.mainpanel.activeframe.show()
 
-    def __init__(self, master: tkinter.Any, width: int = 200, height: int = 200, corner_radius: int | str | None = None, border_width: int | str | None = None, bg_color: str | Tuple[str] = "transparent", fg_color: str | Tuple[str] | None = None, border_color: str | Tuple[str] | None = None, background_corner_colors: Tuple[str | Tuple[str]] | None = None, overwrite_preferred_drawing_method: str | None = None, **kwargs):
-        super().__init__(master, width, height, corner_radius, border_width, bg_color, fg_color, border_color, background_corner_colors, overwrite_preferred_drawing_method, **kwargs)
+    def __init__(self, master, **kwargs):
+        super().__init__(master,border_color='#333',border_width=2, **kwargs)
         self.home=Home(self)
 
         self.activeframe=self.home
