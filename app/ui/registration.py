@@ -1,7 +1,7 @@
 from typing import Tuple
 import customtkinter as ctk
 import tkinter
-from CustomPopUp import PopUp
+from .CustomPopUp import PopUp
 
 # this is the admincam
 class AdminCam(ctk.CTkFrame):
@@ -34,13 +34,19 @@ class UserCam(ctk.CTkFrame):
 class Footer(ctk.CTkFrame):
     def __init__(self,master,**kwargs):
         super().__init__(master,border_color='#333',border_width=2,**kwargs)
-        self.pop=PopUp(self,message="do you wnat to add a adimin or the user",buttons=['Admin','User'])
+        self.pop=PopUp(self.master,message="do you wnat to add a adimin or the user",buttons=[('Admin', self.getAdminKey),('User', lambda:print("USER"))])
         self.b_capture=ctk.CTkButton(self,text='capture',fg_color='green',font=('times new roman',10))
         self.b_try_again=ctk.CTkButton(self,text='try again',fg_color='green',font=('times new roman',10))
         self.b_next=ctk.CTkButton(self,text='next',fg_color='green',font=('times new roman',10),command=self.pop.show)
 
         self.grid_rowconfigure(0,weight=1)
         self.grid_columnconfigure((0,1,2),weight=1)
+
+    def getAdminKey(self):
+         dialog = ctk.CTkInputDialog(text="Enter the existing admin key::", title="Test")
+         text = dialog.get_input()
+         print(text)
+
 
     def show(self):
         self.b_capture.grid(row=0,column=0,padx=20,pady=10)
@@ -56,7 +62,8 @@ class Footer(ctk.CTkFrame):
 class Registration(ctk.CTkFrame):
     def __init__(self,master,**kwargs):
         super().__init__(master,border_color='#333',border_width=2,**kwargs)
-        self.l_title=ctk.CTkLabel(self,text="Resgistration",fg_color='white',text_color='#333',font=("Lucida Handwriting",15))
+        self.l_title=ctk.CTkLabel(self,text="Resgistration",fg_color='white',text_color='#333',font=("Lucida Handwriting",15),height=40)
+        self.l_title.grid_propagate(False)
         self.admincam=AdminCam(self)
         self.usercam=UserCam(self)
         self.footer=Footer(self)
@@ -70,6 +77,9 @@ class Registration(ctk.CTkFrame):
         self.footer.show()
 
         self.grid(row=0,column=0,sticky='nsew',padx=10,pady=10)
+
+    def hide(self):
+        self.grid_forget()
 
 if __name__=="__main__":
     app=ctk.CTk()

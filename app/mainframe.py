@@ -2,15 +2,18 @@ from typing import Tuple
 import customtkinter as ctk
 import tkinter
 
-from ui.home import Home
-from ui.registration import Registration
+
+from .globals import GLOBAL
+from .ui.home import Home
+from .ui.registration import Registration
+# from ui.CustomPopUp import PopUp
 
 class MainPanel(ctk.CTkFrame):
     activepanel=None
     def setActiveFrame(self,frame):
-        App.mainpanel.activeframe.grid_forget
-        App.mainpanel.activeframe=frame
-        App.mainpanel.activeframe.show()
+        self.activeframe.hide()
+        self.activeframe=frame
+        self.activeframe.show()
 
     def __init__(self, master, **kwargs):
         super().__init__(master,border_color='#333',border_width=2, **kwargs)
@@ -19,7 +22,12 @@ class MainPanel(ctk.CTkFrame):
         self.home=Home(self)
         self.registration=Registration(self)
 
-        self.activeframe=self.registration
+        GLOBAL['mainpanel']=self
+
+        self.activeframe=self.home
+        # self.activeframe=self.registration
+
+
 
     def show(self):
         self.activeframe.show()
@@ -33,10 +41,14 @@ class FaceApp(ctk.CTk):
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
         self.mainpanel=MainPanel(self)
+        self.after(10, lambda:self.state("zoomed"))
+
+
     def show(self):
         self.mainpanel.show()
         self.mainloop()
 App=None
-if __name__=='__main__':
+
+def main():
     App=FaceApp()
     App.show()

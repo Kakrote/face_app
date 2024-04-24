@@ -2,6 +2,8 @@ from typing import Tuple
 import customtkinter as ctk
 import tkinter
 
+from ..globals import GLOBAL
+
 ctk.set_appearance_mode("light")
 
 # detail frames
@@ -11,11 +13,16 @@ class DetailFrame(ctk.CTkFrame):
         # self.scroll=ctk.CTkScrollableFrame(self,width=400,height=800)
         # self.scroll.pack(expand=True,fill=tkinter.BOTH)
         self.title=ctk.CTkLabel(self,text="Details will be display over here ",font=("times new roman",20),text_color="#333",fg_color="white",anchor="center")
-        self.b_add=ctk.CTkButton(self,text="ADD",border_color="#333",border_width=2,fg_color="green",text_color="#333",font=("times new roman",12))
+        self.b_add=ctk.CTkButton(self,text="ADD",border_color="#333",border_width=2,fg_color="green",text_color="#333",font=("times new roman",12), command=self.onclick)
         self.b_report=ctk.CTkButton(self,text="REPORT",border_color="#333",border_width=2,fg_color="green",text_color="#333",font=("times new roman",12))
         self.grid_propagate(False)
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
+    
+    # on click
+    def onclick(self):
+        mainpanel=GLOBAL['mainpanel']
+        mainpanel.setActiveFrame(mainpanel.registration)
 
     def show(self):
         self.title.grid(row=0,column=0,sticky='nsew',columnspan=2)
@@ -23,6 +30,10 @@ class DetailFrame(ctk.CTkFrame):
         self.b_report.grid(row=1,column=1,padx=10,pady=10,sticky='sw')
 
         self.grid(row=1,column=1,padx=(0,50),pady=10)
+    
+    def hide(self):
+        self.grid_forget()
+        
 # live camera frame 
 class LiveCamera(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -56,6 +67,10 @@ class Home(ctk.CTkFrame):
         self.detailframe.show()
 
         self.pack(expand=True,fill=tkinter.BOTH,padx=10,pady=10)
+
+        
+    def hide(self):
+        self.pack_forget()
 
 if __name__=="__main__":
     app=ctk.CTk()

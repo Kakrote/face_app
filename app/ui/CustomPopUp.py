@@ -12,11 +12,12 @@ class PopUp(ctk.CTkFrame):
 
         # buttons 
         self.button_frame=ctk.CTkFrame(self)
-        for buttons_text in buttons:
-            button = ctk.CTkButton(self.button_frame, text=buttons_text, command=self.close)  # Default close action on button click
+        for buttons_text, callback in buttons:
+            button = ctk.CTkButton(self.button_frame, text=buttons_text, command=callback)  # Default close action on button click
             button.grid( padx=5)
 
         self.close_func=None
+       
     
 
     def set_close_function(self, func):
@@ -25,13 +26,16 @@ class PopUp(ctk.CTkFrame):
     def close(self):
         if self.close_func:
             self.close_func()
-        self.destroy()
+        self.grid_forget()
 
     def show(self):
-        self.title.grid()
-        self.message.grid(padx=10,pady=10)
+        # self.title.grid()
+        # self.message.grid(padx=10,pady=10)
+        # self.button_frame.grid()
+        self.title.pack()
+        self.message.pack(padx=10,pady=10)
+        self.button_frame.pack()
         # self.bu=self.button_frame(self)
-        self.button_frame.grid()
         # self.bu.grid()
         # self.pack(fill=ctk.BOTH, expand=True)
-        self.grid()
+        self.grid(row=1,column=2,padx=30)
