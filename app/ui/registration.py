@@ -2,6 +2,7 @@ from typing import Tuple
 import customtkinter as ctk
 import tkinter
 from .CustomPopUp import PopUp
+# from..globals import GLOBAL
 
 # this is the admincam
 class AdminCam(ctk.CTkFrame):

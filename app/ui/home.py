@@ -1,6 +1,7 @@
 from typing import Tuple
 import customtkinter as ctk
 import tkinter
+from ..src.opeancam import Cam
 
 from ..globals import GLOBAL
 
@@ -38,8 +39,10 @@ class DetailFrame(ctk.CTkFrame):
 class LiveCamera(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, width=500, height=500,corner_radius=2,border_color="#333",fg_color="transparent",border_width=2, **kwargs)
+        self.cam=Cam(self)
         self.title=ctk.CTkLabel(self,text="live camera",font=("times new roman",20),fg_color="white",text_color='#333')
-        self.b_start=ctk.CTkButton(self,text="START CAMERA",font=('times new roman',12),border_color="white",border_width=2,fg_color='green',text_color="#333")
+        self.b_start=ctk.CTkButton(self,text="START CAMERA",font=('times new roman',12),border_color="white",border_width=2,fg_color='green',text_color="#333",command=self.cam.toggle_camera)
+        GLOBAL['livecam']=self
         self.grid_propagate(False)
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
