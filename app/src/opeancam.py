@@ -61,7 +61,7 @@ class Cam(ctk.CTkFrame):
             self.livecam.title.configure(image=img)
 
             # Schedule the next frame update using tkinter's after() method
-            self.master.after(10, self.update_frame)
+            self.master.after(1, self.update_frame)
 
 
 def _display_face(draw, bounding_box, name, clr="white"):
